@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+​
+
+<head>
+    <meta charset="UTF-8">
+    <title>Super Hot Restaurant</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    ​
+</head>
+​
+
+<body>
+    ​
+    <div class="container">
+        <div class="jumbotron">
+            <h1>SUPER Hot Restaurant</h1>
+            <h3>Make your reservation </h3>
+            <hr>
+            <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> Home</button></a>
+            <a href="/tables"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> View
+                    Tables</button></a>
+        </div>
+        <div class="row">
+            ​
+            <div class="col-12">
+                ​
+                <div class="card">
+                    <div class="card-header">
+                        <h3><strong>Reservations</strong></h3>
+                    </div>
+                    <div id="reservations" class="card-body">
+
+                    </div>
+                </div>
+                <hr>
+                <div class="card">
+                    <div class="card-header">
+                        <h3><strong>Waitlist</strong></h3>
+                    </div>
+                    <div id="waitlist" class="card-body">
+
+                    </div>
+                </div>
+                ​
+            </div>
+        </div>
+    </div>
+    ​
+
+    <script type="text/javascript">
+        $.get("/api/tables", function(tables) {
+            console.log(tables);
+            if (tables.length > 0) {
+                tables.forEach(table => {
+                    var wrapperEl = $("<div class='card'>")
+                    var nameEl = $("<div>").text(table.name);
+                    var phoneEl = $("<div>").text(table.phone);
+                    var emailEl = $("<div>").text(table.email);
+                    var resNameEl = $("<div>").text(table.reservationName);
+                    $("#reservations").append(wrapperEl)
+                    wrapperEl.append(nameEl)
+                    wrapperEl.append(phoneEl)
+                    wrapperEl.append(emailEl)
+                    wrapperEl.append(resNameEl)
+                });
+            }
+        });
+
+        $.get("/api/waitlist", function(waitlist) {
+            console.log(waitlist);
+            if (waitlist.length > 0) {
+                waitlist.forEach(list => {
+                    var wrapperEl = $("<div class='card'>")
+                    var nameEl = $("<div>").text(list.name);
+                    var phoneEl = $("<div>").text(list.phone);
+                    var emailEl = $("<div>").text(list.email);
+                    var resNameEl = $("<div>").text(list.reservationName);
+                    $("#waitlist").append(wrapperEl)
+                    wrapperEl.append(nameEl)
+                    wrapperEl.append(phoneEl)
+                    wrapperEl.append(emailEl)
+                    wrapperEl.append(resNameEl)
+                });
+            }
+        });
+    </script>
+    ​
+</body>
+​
+
+</html>
